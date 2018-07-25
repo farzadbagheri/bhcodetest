@@ -16,6 +16,7 @@ export default class UsersTab extends React.Component<Props, State> {
 
 
   updatePosts = () => {
+
     console.log("update posts");
     const data = {content: this.state.content,
                       poster: this.state.poster};
@@ -29,6 +30,12 @@ export default class UsersTab extends React.Component<Props, State> {
     }).then(res => res.json())
     .catch(error => console.error('Error:', error))
     .then(response => console.log('Success:', response));
+    this.props.posts.push(data);
+    this.setState({
+      posts: this.props.posts,
+      content: '',
+      poster: '',
+    });
   }
 
   clearPosts = () => {
@@ -73,8 +80,8 @@ export default class UsersTab extends React.Component<Props, State> {
               <h2>Posts</h2>
               <ul>{listPosts}</ul>
               <h3>Add a post</h3>
-              <input name="poster" onChange={this.handleInputChange}/>
-              <textarea name="content" onChange={this.handleInputChange}/>
+              <input name="poster" onChange={this.handleInputChange} value={this.state.poster}/>
+              <textarea name="content" onChange={this.handleInputChange} value={this.state.content}/>
               <button onClick={() => this.updatePosts()}>Submit</button>
           </div>
       )
