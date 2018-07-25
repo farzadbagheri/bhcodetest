@@ -1,21 +1,21 @@
 import * as React from 'react';
 import ReactTable from 'react-table';
 import './index.css';
-import UserView from './UserView';
+import UserModal from './UserModal';
 
 type State = {
 	users: User[];
 };
 
-export default class UsersTab extends React.Component<Props, State> {
+export default class UsersTab extends React.Component<State> {
     state = {
         	users: [],   
        
     };
 
     componentDidMount() {
-    	this.getAllUsers()
-  }
+    	this.getAllUsers();
+  	}
 
     getAllUsers() {
             const url = 'https://bh-interview.now.sh/';
@@ -43,8 +43,14 @@ export default class UsersTab extends React.Component<Props, State> {
         accessor: d => d,
         Cell: row => (
           <div>
-            <img src={row.value.image} />
-            <a>{row.value.name} </a>
+            <a src="/user"> <img src={row.value.image}/> </a>
+            <UserModal 
+            	id={row.value.id} 
+            	name={row.value.name} 
+            	image={row.value.image}
+            	posts={row.value.posts}
+            />
+            <p>{row.value.name} </p>
           </div>
         ),
         Header: 'User',
