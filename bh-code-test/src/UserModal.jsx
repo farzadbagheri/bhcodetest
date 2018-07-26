@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './index.css';
 
+
 type State = {
     data: Object;
     poster: string;
