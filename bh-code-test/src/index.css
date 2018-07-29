@@ -1,2 +1,16 @@
 body {
   background: #fafafa; }
+
+.flex-container {
+	display: flex;
+	flex-wrap: wrap;
+  	flex-direction: column;
+  	align-items: center;
+} 
+
+.user-img {
+	float:left;
+	clear:left;
+	width: 20%;
+	height: 20%;
+}

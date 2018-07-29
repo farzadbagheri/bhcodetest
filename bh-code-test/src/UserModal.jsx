@@ -15,9 +15,7 @@ export default class UsersTab extends React.Component<Props, State> {
       content: '',   
   };
 
-
   updatePosts = () => {
-
     console.log("update posts");
     const data = {content: this.state.content,
                       poster: this.state.poster};
@@ -55,8 +53,7 @@ export default class UsersTab extends React.Component<Props, State> {
                 this.setState({
                   users: json.data,
                 })
-            }).catch( err => {
-            
+            }).catch( err => {     
     })
   }
 
@@ -79,7 +76,7 @@ export default class UsersTab extends React.Component<Props, State> {
               <h1>{this.props.name}</h1>
               <img src={this.props.avatar}/>
               <h2>Posts</h2>
-              <ul>{listPosts}</ul>
+              <ul className="post-list">{listPosts}</ul>
               <h3>Add a post</h3>
               <input name="poster" onChange={this.handleInputChange} value={this.state.poster}/>
               <textarea name="content" onChange={this.handleInputChange} value={this.state.content}/>

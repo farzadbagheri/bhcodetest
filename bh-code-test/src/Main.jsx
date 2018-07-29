@@ -1,5 +1,5 @@
 import * as React from 'react';
-import ReactTable from 'react-table';
+import { BrowserRouter, Route, Link } from 'react-router-dom';
 import './index.css';
 import UserModal from './UserModal';
 
@@ -47,27 +47,20 @@ export default class UsersTab extends React.Component<State> {
     }
 
     render() {
-    	const columns = [
-      {
-        accessor: d => d,
-        Cell: row => (
-          <div>
-            <a src="/user"> <img onClick={() => this.showModal(row.value.id)} src={row.value.image}/> </a>
-            {this.state.modalActive && this.state.activeId === row.value.id && (<UserModal 
-              id={row.value.id} 
-            	name={row.value.name} 
-            	image={row.value.image}
-            	posts={row.value.posts}
+        const listUsers = this.state.users.map((d) => 
+          <div key={d.name}>
+            <img className='user-img' onClick={() => this.showModal(d.id)} src={d.image}/>
+            <h1 className='user-name'>{d.name}</h1>
+            {this.state.modalActive && this.state.activeId === d.id && (<UserModal 
+              id={d.id} 
+              name={d.name} 
+              image={d.image}
+              posts={d.posts}
             />)}
           </div>
-        ),
-        Header: 'User',
-        id: 'name',
-        minWidth: 250,
-      },
-     ];
+          );
         return (
-        	<ReactTable data={this.state.users} columns={columns} />   
+        	<div className="flex-container">{listUsers}</div>  
         )
     }
 }
