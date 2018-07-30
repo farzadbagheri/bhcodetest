@@ -8,7 +8,7 @@ type State = {
   activeId: number,
 };
 
-export default class UsersTab extends React.Component<State> {
+export default class Main extends React.Component<State> {
     state = {
       users: [],
       modalActive: false,
@@ -26,6 +26,14 @@ export default class UsersTab extends React.Component<State> {
       })
     };
 
+    hideModal = (e) => {
+      if(this.state.modalActive && e.target.classList.contains('modal')) {
+        this.setState({
+          modalActive: !this.state.modalActive,
+        })
+      }
+    }
+
     getAllUsers() {
       const url = 'https://bh-interview.now.sh/';
       const fetch_url = `${url}users`  
@@ -41,27 +49,29 @@ export default class UsersTab extends React.Component<State> {
         this.setState({
         	users: json.data,
         })
-      }).catch( err => {
-    })
+      }).catch( err => { 
+      })
     }
 
     render() {
-        const listUsers = this.state.users.map((d) => 
-          <div className='flex-item' key={d.name}>
-              <img className='user-img' onClick={() => this.showModal(d.id)} src={d.image}/>
-            <h1 className='user-name'>{d.name}</h1>
-            {this.state.modalActive && this.state.activeId === d.id && (<UserModal 
-              
-              id={d.id} 
-              name={d.name} 
-              image={d.image}
-              posts={d.posts}
-            />)}
-          </div>
-          );
-        return (
-          <div className="flex-container">{listUsers}</div> 
-        )
+      const listUsers = this.state.users.map((d) => 
+        <div className='flex-item' key={d.name}>
+          <img className='user-img' onClick={() => this.showModal(d.id)} src={d.image} alt={d.name}/>
+          <h1 className='user-name'>{d.name}</h1>
+          {this.state.modalActive && this.state.activeId === d.id && (<UserModal 
+            id={d.id} 
+            name={d.name} 
+            image={d.image}
+            posts={d.posts}
+          />)}
+        </div>
+      );
+      return (
+        <div>
+          <h1 className='header'>Big Humans</h1>
+          <div className="flex-container" onClick={(e) => this.hideModal(e)}>{listUsers}</div>
+        </div> 
+      )
     }
 }
 

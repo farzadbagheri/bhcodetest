@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 import './index.css';
 
 
@@ -8,17 +8,17 @@ type State = {
     content: string;
 };
 
-export default class UsersTab extends React.Component<Props, State> {
+export default class UserModal extends React.Component<Props, State> {
   state = {
       posts: this.props.posts,
       poster: '',
       content: '',   
   };
 
-  updatePosts = () => {
+  updatePosts = (name) => {
     console.log("update posts");
     const data = {content: this.state.content,
-                      poster: this.state.poster};
+                      poster: name};
     var url = `https://bh-interview.now.sh/users/${this.props.id}/posts`;
     fetch(url, {
       method: 'POST',
@@ -29,60 +29,34 @@ export default class UsersTab extends React.Component<Props, State> {
     }).then(res => res.json())
     .catch(error => console.error('Error:', error))
     .then(response => console.log('Success:', response));
-    this.props.posts.push(data);
+    this.state.posts.push(data);
     this.setState({
-      posts: this.props.posts,
       content: '',
       poster: '',
     });
   }
 
-  clearPosts = () => {
-    const url = 'https://bh-interview.now.sh/users/posts/clear';
-            const fetch_url = `${url}`
-            
-            fetch(fetch_url, {
-                method: 'GET'
-            })
-            .then(response => {
-            if (!response.ok) { throw Error(response.statusText) }
-                return response.json()  
-            })
-            .then(json => {
-                console.log(json.data);
-                this.setState({
-                  users: json.data,
-                })
-            }).catch( err => {     
-    })
-  }
-
   handleInputChange = (event) => {
-    console.log("inputchange");
     const target = event.target;
-    const name = target.name;
-    console.log(target.value);
     this.setState({
-      [name]: target.value
+      content: target.value
     });
-    console.log("here")
   }
-
 
   render() {
-      const listPosts = this.state.posts.map((d) => <li key={d.poster}><h3>{d.poster}</h3><p>{d.content}</p></li>);
-      return(
-          <div>
-              <h1>{this.props.name}</h1>
-              <img src={this.props.avatar}/>
-              <h2>Posts</h2>
-              <ul className="post-list">{listPosts}</ul>
-              <h3>Add a post</h3>
-              Your Name: <input name="poster" onChange={this.handleInputChange} value={this.state.poster}/>
-              <br />
-              Post: <textarea name="content" onChange={this.handleInputChange} value={this.state.content}/>
-              <button onClick={() => this.updatePosts()}>Submit</button>
-          </div>
-      )
+    const listPosts = this.state.posts.map((d) => <li key={d.poster}><p>{d.content}</p></li>);
+    return(
+      <div className='modal'>
+        <div className='modal-content'>
+          <img className='modal-img' src={this.props.image} alt={this.props.name}/>
+          <h1 className='modal-header'>{this.props.name}</h1>
+          <h2>Posts</h2>
+          <ul className="post-list">{listPosts}</ul>
+          <h3>Add a post</h3>
+          <textarea rows="5" cols="35" name="content" onChange={this.handleInputChange} value={this.state.content}/>
+          <button className='submit' onClick={() => this.updatePosts(this.props.name)}>Submit</button>
+        </div>
+      </div>
+    )
   }
 }
