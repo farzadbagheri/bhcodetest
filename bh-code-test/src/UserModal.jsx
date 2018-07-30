@@ -50,9 +50,11 @@ export default class UserModal extends React.Component<Props, State> {
         <div className='modal-content'>
           <img className='modal-img' src={this.props.image} alt={this.props.name}/>
           <h1 className='modal-header'>{this.props.name}</h1>
-          <h2>Posts</h2>
-          <ul className="post-list">{listPosts}</ul>
-          <h3>Add a post</h3>
+          <br />
+          <h2>Comments</h2>
+          {listPosts.length === 0 ? <h3><em>No comments yet</em></h3> 
+                                  : <ul className="post-list">{listPosts}</ul>}
+          <h3>Add a comment</h3>
           <textarea rows="5" cols="35" name="content" onChange={this.handleInputChange} value={this.state.content}/>
           <button className='submit' onClick={() => this.updatePosts(this.props.name)}>Submit</button>
         </div>
