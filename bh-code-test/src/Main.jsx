@@ -1,12 +1,11 @@
 import * as React from 'react';
-import { BrowserRouter, Route, Link } from 'react-router-dom';
 import './index.css';
 import UserModal from './UserModal';
 
 type State = {
-	users: User[];
-    modalActive: boolean,
-    activeId: number,
+	users: Array[];
+  modalActive: boolean,
+  activeId: number,
 };
 
 export default class UsersTab extends React.Component<State> {
@@ -48,10 +47,11 @@ export default class UsersTab extends React.Component<State> {
 
     render() {
         const listUsers = this.state.users.map((d) => 
-          <div key={d.name}>
-            <img className='user-img' onClick={() => this.showModal(d.id)} src={d.image}/>
+          <div className='flex-item' key={d.name}>
+              <img className='user-img' onClick={() => this.showModal(d.id)} src={d.image}/>
             <h1 className='user-name'>{d.name}</h1>
             {this.state.modalActive && this.state.activeId === d.id && (<UserModal 
+              
               id={d.id} 
               name={d.name} 
               image={d.image}
@@ -60,7 +60,7 @@ export default class UsersTab extends React.Component<State> {
           </div>
           );
         return (
-        	<div className="flex-container">{listUsers}</div>  
+          <div className="flex-container">{listUsers}</div> 
         )
     }
 }

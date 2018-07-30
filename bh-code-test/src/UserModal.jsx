@@ -78,8 +78,9 @@ export default class UsersTab extends React.Component<Props, State> {
               <h2>Posts</h2>
               <ul className="post-list">{listPosts}</ul>
               <h3>Add a post</h3>
-              <input name="poster" onChange={this.handleInputChange} value={this.state.poster}/>
-              <textarea name="content" onChange={this.handleInputChange} value={this.state.content}/>
+              Your Name: <input name="poster" onChange={this.handleInputChange} value={this.state.poster}/>
+              <br />
+              Post: <textarea name="content" onChange={this.handleInputChange} value={this.state.content}/>
               <button onClick={() => this.updatePosts()}>Submit</button>
           </div>
       )

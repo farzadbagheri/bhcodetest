@@ -1,3 +1,21 @@
 body {
    background: #fafafa;
+   font-family: "HelveticaNeue-Light"
 }
+
+.flex-container {
+	display: flex;
+  	flex-direction: row;
+  	flex-wrap: wrap;
+  	align-items: flex-end;
+  	.flex-item {
+  		padding: 3%;
+  	}
+} 
+
+.user-img {
+
+	padding: 1%;
+	border-radius: 100px;
+}
+
