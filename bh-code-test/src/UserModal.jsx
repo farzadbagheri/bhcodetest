@@ -1,17 +1,14 @@
 import * as React from 'react';
 import './index.css';
 
-
 type State = {
-    data: Object;
-    poster: string;
+    posts: Array[];
     content: string;
 };
 
 export default class UserModal extends React.Component<Props, State> {
   state = {
       posts: this.props.posts,
-      poster: '',
       content: '',   
   };
 
@@ -30,10 +27,7 @@ export default class UserModal extends React.Component<Props, State> {
     .catch(error => console.error('Error:', error))
     .then(response => console.log('Success:', response));
     this.state.posts.push(data);
-    this.setState({
-      content: '',
-      poster: '',
-    });
+    this.setState({ content: '' });
   }
 
   handleInputChange = (event) => {
