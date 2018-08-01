@@ -56,7 +56,9 @@ body {
         background-color: white;
         padding: 1rem 1.5rem;
         width: 35rem;
+	height: 500px;
         border-radius: 0.75rem;
+	overflow: scroll;
     }
     .submit {
     	height: 2rem;
@@ -64,4 +66,10 @@ body {
     	font-size: 20px;
     	float: right;
     }
+}
+
+@media only screen and (max-width: 768px) {
+	.modal-content {
+		width: 55%;
+	}
 }
